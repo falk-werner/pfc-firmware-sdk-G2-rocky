@@ -1,0 +1,47 @@
+diff --git a/ptxproj/local_src/wago-pfc-diagnostic/src/diagnostic/xslt_lock.sh b/ptxproj/local_src/wago-pfc-diagnostic/src/diagnostic/xslt_lock.sh
+index a1e1ba5..9784e29 100644
+--- a/ptxproj/local_src/wago-pfc-diagnostic/src/diagnostic/xslt_lock.sh
++++ b/ptxproj/local_src/wago-pfc-diagnostic/src/diagnostic/xslt_lock.sh
+@@ -25,7 +25,7 @@ function lockMyself()
+   # See aslo https://linuxaria.com/howto/linux-shell-introduction-to-flock
+   # scriptname will contain the base name of this file in order to lock the same file regardless of the sourcing script.
+   scriptname="$(basename "${BASH_SOURCE[1]}")"
+-  lock="/var/lock/${scriptname}"
++  lock="/tmp/${scriptname}"
+ 
+   # Open the file ${lock} and assign handle "200" to it.
+   exec 200>"${lock}"
+diff --git a/ptxproj/rules/host-python3-pyyaml.make b/ptxproj/rules/host-python3-pyyaml.make
+index b1c00e9..f64c7fc 100644
+--- a/ptxproj/rules/host-python3-pyyaml.make
++++ b/ptxproj/rules/host-python3-pyyaml.make
+@@ -35,5 +35,6 @@ HOST_PYTHON3_PYYAML_LICENSE	:= MIT
+ # ----------------------------------------------------------------------------
+ 
+ HOST_PYTHON3_PYYAML_CONF_TOOL	:= python3
++HOST_PYTHON3_PYYAML_CFLAGS	+= -Wno-incompatible-pointer-types 
+ 
+ # vim: syntax=make
+diff --git a/ptxproj/rules/pre/python.make b/ptxproj/rules/pre/python.make
+index b8db7fe..880f49c 100644
+--- a/ptxproj/rules/pre/python.make
++++ b/ptxproj/rules/pre/python.make
+@@ -7,7 +7,7 @@
+ #
+ 
+ ifdef PTXCONF_HOST_SYSTEM_PYTHON
+-SYSTEMPYTHON := python2
++SYSTEMPYTHON := python
+ else
+ SYSTEMPYTHON := host-system-python-is-disabled
+ endif
+diff --git a/ptxproj/scripts/wago/create_wup_controlfile.sh b/ptxproj/scripts/wago/create_wup_controlfile.sh
+index 0fc1a4e..ffffe13 100755
+--- a/ptxproj/scripts/wago/create_wup_controlfile.sh
++++ b/ptxproj/scripts/wago/create_wup_controlfile.sh
+@@ -1,4 +1,4 @@
+-#!/bin/dash
++#!/usr/bin/env bash
+ 
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
